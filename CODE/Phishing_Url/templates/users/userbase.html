@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Page</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-image: url(/static/img/bg.png);
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            height: 100vh;
+            margin: 0;
+            padding-top: 56px; /* For fixed navbar */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        .navbar {
+            background-color: #343a40; /* Dark background */
+        }
+
+        .navbar-nav .nav-item .nav-link {
+            color: #ffffff; /* White text color */
+        }
+
+        .navbar-nav .nav-item .nav-link:hover {
+            color: #d4d4d4; /* Light gray on hover */
+        }
+
+        .container {
+            max-width: 600px;
+            color: #ffffff; /* White text color */
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Fixed Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+        <a class="navbar-brand" href="#" style="text-transform: capitalize;">MALICIOUS <span style="color: red;">URL DETECTION</span> WITH FEATURE SELECTION</a>
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'userhome' %}">UserHome</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'training' %}">Build_Model</a>
+                </li>
+                <li class="nav-item">
+                    <a href="{% url 'metrics' %}" class="nav-link">Model_Metrics</a>
+                </li>
+                
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'urlcheck' %}">Check URL</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link"  href="{% url 'register' %}">Logout</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    
+    {% block content %}
+    {% endblock %}
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.7/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

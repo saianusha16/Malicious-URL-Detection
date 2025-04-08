@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(to right, #6a11cb, #2575fc);
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            max-width: 400px;
+            margin-top: 100px;
+            background: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+        }
+        .form-group label {
+            font-weight: bold;
+        }
+        .btn-primary {
+            background-color: #2575fc;
+            border-color: #2575fc;
+        }
+        .btn-primary:hover {
+            background-color: #1a5fb9;
+            border-color: #1a5fb9;
+        }
+        .sign-up-link {
+            margin-top: 15px;
+            text-align: center;
+        }
+        .sign-up-link a {
+            color: #2575fc;
+            text-decoration: none;
+        }
+        .sign-up-link a:hover {
+            text-decoration: underline;
+        }
+        .back-btn {
+            margin: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<a href="{% url 'register' %}" class="btn btn-secondary back-btn">Back to Register</a>
+
+<div class="container">
+    <h2 class="text-center mb-4">Remote User Login</h2>
+    <!-- Django Messages -->
+    {% if messages %}
+        <div class="mb-3">
+            {% for message in messages %}
+                <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                    {{ message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    <form id="loginForm" novalidate method="post">
+        {% csrf_token %}
+        <div class="form-group mb-3">
+            <label for="username">Username</label>
+            <input type="text" class="form-control" id="username" placeholder="Enter your username" name="username" required>
+            <div class="invalid-feedback">Please enter your username.</div>
+        </div>
+        <div class="form-group mb-3">
+            <label for="password">Password</label>
+            <input type="password" class="form-control" id="password" placeholder="Enter your password" name="pswd" required>
+            <div class="invalid-feedback">Please enter your password.</div>
+        </div>
+        <button type="submit" class="btn btn-primary w-100">Login</button>
+    </form>
+</div>
+
+<div class="text-center mt-3">
+    <a href="{% url 'forgot_password' %}" class="btn btn-secondary">Forgot Password?</a>
+</div>
+
+<script>
+    // Custom form validation
+    (function () {
+        'use strict';
+        const form = document.getElementById('loginForm');
+        form.addEventListener('submit', function (event) {
+            if (!form.checkValidity()) {
+                event.preventDefault();
+                event.stopPropagation();
+            }
+            form.classList.add('was-validated');
+        }, false);
+    })();
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

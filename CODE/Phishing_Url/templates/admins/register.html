@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responsive Form with Validation</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(to right, #00c6ff, #0072ff);
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            max-width: 600px;
+            margin-top: 50px;
+            background: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+
+        .form-group label {
+            font-weight: bold;
+        }
+
+        .btn-primary {
+            background-color: #0072ff;
+            border-color: #0072ff;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #0056b3;
+        }
+
+        .sign-in-link {
+            margin-top: 15px;
+            text-align: center;
+        }
+
+        .sign-in-link a {
+            color: #0072ff;
+            text-decoration: none;
+        }
+
+        .sign-in-link a:hover {
+            text-decoration: underline;
+        }
+
+        /* Tooltip position */
+        .tooltip-custom {
+            position: absolute;
+            top: 50%;
+            right: -250px;
+            /* Adjust this value to control horizontal position */
+            transform: translateY(-50%);
+        }
+
+        /* Project title styling */
+        .project-title {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #fff;
+            font-size: 44px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="project-title">Malicious
+        URL Detection with Feature Selection</div>
+
+    <div class="container">
+        <h2 class="text-center mb-6">Sign Up Into Your Account</h2>
+
+        <!-- Tooltip Trigger -->
+        <button type="button" class="btn btn-secondary tooltip-custom" data-bs-toggle="tooltip"
+            data-bs-placement="right" title="Fill in all fields correctly to sign up."
+            onclick="window.location.href='{% url 'adminlogin' %}'">
+            Admin Login
+        </button>
+        
+
+        <!-- Django Messages -->
+        {% if messages %}
+        <div class="mb-3">
+            {% for message in messages %}
+            <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+
+        <form id="signupForm" novalidate method="post">
+            {% csrf_token %}
+            <div class="form-group mb-3">
+                <label for="name">User Name</label>
+                <input type="text" class="form-control" id="name" placeholder="Enter your name" name="username"
+                    required>
+                <div class="invalid-feedback">Please enter your name.</div>
+            </div>
+            <div class="form-group mb-3">
+                <label for="email">Email address</label>
+                <input type="email" class="form-control" id="email" placeholder="Enter your email" name="email"
+                    required>
+                <div class="invalid-feedback">Please enter a valid email address.</div>
+            </div>
+            <div class="form-group mb-3">
+                <label for="password">Password</label>
+                <input type="password" class="form-control" id="password" placeholder="Password" name="pswd1" required
+                    minlength="6">
+                <div class="invalid-feedback">Password must be at least 6 characters long.</div>
+            </div>
+            <div class="form-group mb-3">
+                <label for="confirmPassword">Confirm Password</label>
+                <input type="password" class="form-control" id="confirmPassword" placeholder="Confirm your password"
+                    name="pswd2" required>
+                <div class="invalid-feedback">Passwords do not match.</div>
+            </div>
+            <button type="submit" class="btn btn-primary w-100">Sign Up</button>
+            <div class="sign-in-link">
+                <p>Already have an account? <a href="{% url 'login' %}">Sign in</a></p>
+            </div>
+
+        </form>
+    </div>
+
+    <script>
+        // Custom form validation
+        (function () {
+            'use strict';
+            const form = document.getElementById('signupForm');
+            form.addEventListener('submit', function (event) {
+                if (!form.checkValidity()) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                } else if (document.getElementById('password').value !== document.getElementById('confirmPassword').value) {
+                    event.preventDefault();
+                    document.getElementById('confirmPassword').classList.add('is-invalid');
+                } else {
+                    alert('Form submitted successfully!');
+                }
+                form.classList.add('was-validated');
+            }, false);
+        })();
+
+        // Enable Bootstrap tooltips
+        const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+        const tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+            return new bootstrap.Tooltip(tooltipTriggerEl);
+        });
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
